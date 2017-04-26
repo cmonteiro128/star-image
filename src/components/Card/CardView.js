@@ -1,18 +1,12 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-const CardView = () => (
-  <Card>
-    <CardHeader
-      title="URL Avatar"
-      subtitle="Subtitle"
-      avatar="images/jsa-128.jpg"
-    />
-    <CardMedia
-      overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-    >
-    <img alt='Space is cool' src='/img/nature.jpg' />
+
+const CardView = ({style}) => (
+  <Card style={style}>
+    <CardMedia>
+        <img alt='Space is cool' src='/img/nature.jpg' />
     </CardMedia>
     <CardTitle title="Card title" subtitle="Card subtitle" />
     <CardText>

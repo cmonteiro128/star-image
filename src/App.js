@@ -97,7 +97,7 @@ class App extends Component {
       showMenuIconButton = false;
 
       styles.navDrawer = {
-        zIndex: styles.appBar.zIndex - 1,
+        //zIndex: styles.appBar.zIndex - 1,
       };
       styles.root.paddingLeft = 256;
     }
