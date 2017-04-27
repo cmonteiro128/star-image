@@ -3,10 +3,10 @@ import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Car
 import FlatButton from 'material-ui/FlatButton';
 
 
-const CardView = ({style}) => (
+const CardView = ({style, url}) => (
   <Card style={style}>
     <CardMedia>
-        <img alt='Space is cool' src='/img/nature.jpg' />
+        <img alt='Space is cool' src={url} />
     </CardMedia>
     <CardTitle title="Card title" subtitle="Card subtitle" />
     <CardText>
