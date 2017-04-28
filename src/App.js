@@ -57,6 +57,9 @@ class App extends Component {
 
   getStyles() {
     const styles = {
+      main: {
+        'backgroundColor': "#e1e2e1",
+      },
       appBar: {
         position: 'fixed',
         // Needed to overlap the examples
@@ -69,6 +72,7 @@ class App extends Component {
       root: {
         paddingTop: spacing.desktopKeylineIncrement,
         height: '100vh',
+        
       },
       contentWhenMedium: {
         margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
@@ -118,6 +122,7 @@ class App extends Component {
             containerStyle={drawerStyle}
             onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
             >
+            <MenuItem>APOD</MenuItem>
             <MenuItem>Curiosity</MenuItem>
             <MenuItem>Opportunity</MenuItem>
           </Drawer>

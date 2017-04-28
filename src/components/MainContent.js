@@ -1,39 +1,50 @@
 import React, {Component} from 'react';
 import CardView from './Card/CardView';
-import key from '../apikey.js'
+import key from '../apikey.js';
 
 let cardStyle = {
     'marginBottom' : 15,
 }
 
-//let imgUrl = 'test'; 
 
 class MainContent extends Component {
+    
     constructor(props) {
         super(props);
-
+        this.state = {
+            imgURL: '',
+            explanation: '',
+            title: '',
+            subtitle: ''
+        };
         // This binding is necessary to make `this` work in the callback
         this.getImageDay = this.getImageDay.bind(this);
 
     }
 
-     getImageDay() {
+    componentDidMount() {
+        this.getImageDay();
+    }
+
+    getImageDay() {
         //Export your api key from a separate file
         fetch('https://api.nasa.gov/planetary/apod?api_key=' + key)
-            .then(function(response) {
+            .then((response) => {
                 return response.json();
-                //this.imgurl = response.json().url;
-        }).then(function(imgData){
-                return imgData['url'];
-                //console.log(imgUrl);
+        }).then((imgData) => {
+                this.setState({
+                    imgURL: imgData['url'],
+                    explanation: imgData['explanation'],
+                    title: imgData['title'],
+                    subtitle: imgData['copyright'],    
+                })
         }).catch(function(err) {
-            console.log("Oh no!");
+            console.log(err);
         });
     }
 
-    render() {  
-        //this.getImageDay();
-        const localImgUrl = this.getImageDay(); 
+    render() {          
+        //const localImgUrl = this.imgurl; 
         /*var rows = [];
         for (var i=0; i < 4; i++) {
             rows.push(<CardView key={i} style={cardStyle}/>);
@@ -43,11 +54,8 @@ class MainContent extends Component {
                 <p className="App-intro">
                     Welcome to NASA Images!
                 </p>
-                {/*<button onClick={this.getImageDay}>Test</button>*/}
-                <div>
                 {/*rows*/}
-                <CardView url={localImgUrl} style={cardStyle}/>
-                </div>
+                <CardView url={this.state.imgURL} style={cardStyle} title={this.state.title} subtitle={this.state.subtitle} explain={this.state.explanation} />
             </div>
         );
     }

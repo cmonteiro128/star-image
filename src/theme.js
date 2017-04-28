@@ -22,7 +22,7 @@ export const mainTheme = getMuiTheme({
     accent3Color: pinkA100,
     textColor: fullWhite,
     secondaryTextColor: fade(fullWhite, 0.7),
-    alternateTextColor: '#ffffff',
+    alternateTextColor: '#f5f5f6',
     canvasColor: '#37474f',
     borderColor: fade(fullWhite, 0.3),
     disabledColor: fade(fullWhite, 0.3),

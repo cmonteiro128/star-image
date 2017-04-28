@@ -3,21 +3,15 @@ import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Car
 import FlatButton from 'material-ui/FlatButton';
 
 
-const CardView = ({style, url}) => (
+const CardView = ({style, url, title, subtitle, explain}) => (
   <Card style={style}>
     <CardMedia>
-        <img alt='Space is cool' src={url} />
+        <img height="50%" width="50%" alt='Space is cool' src={url} />
     </CardMedia>
-    <CardTitle title="Card title" subtitle="Card subtitle" />
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    </CardText>
+    <CardTitle title={title} subtitle={subtitle} />
+    <CardText>{explain}</CardText>
     <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
+      <FlatButton label="Share" />
     </CardActions>
   </Card>
 );
