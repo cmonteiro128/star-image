@@ -9,21 +9,15 @@ import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import './App.css';
 
-let drawerStyle = {
-    'top': '64px',
-};
-
 class App extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
 
-  state = {
-    open: false,
-  };
+    this.state = { open: false, docked: false };
+  }
 
   handleTouchTapLeftIconButton = () => {
     this.setState({
@@ -70,9 +64,7 @@ class App extends Component {
         margin: spacing.desktopGutter,
       },
       root: {
-        paddingTop: spacing.desktopKeylineIncrement,
-        height: '100vh',
-        
+        paddingTop: spacing.desktopKeylineIncrement,        
       },
       contentWhenMedium: {
         margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
@@ -89,7 +81,7 @@ class App extends Component {
 
   render() {
     let {
-      open,
+      open, docked
     } = this.state;
 
     const styles = this.getStyles();
@@ -98,6 +90,7 @@ class App extends Component {
 
     if (this.props.width === LARGE) {
       open = true;
+      docked = true;
       showMenuIconButton = false;
 
       styles.navDrawer = {
@@ -118,9 +111,9 @@ class App extends Component {
           />
           <Drawer 
             open={open} 
+            docked={docked}
             style={styles.navDrawer}
-            containerStyle={drawerStyle}
-            onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
+            onRequestChange={this.handleChangeRequestNavDrawer}
             >
             <MenuItem>APOD</MenuItem>
             <MenuItem>Curiosity</MenuItem>

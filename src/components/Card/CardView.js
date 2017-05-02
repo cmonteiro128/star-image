@@ -1,6 +1,10 @@
 import React from 'react';
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const styleButton = {
+  margin: 12,
+};
 
 
 const CardView = ({style, url, title, subtitle, explain}) => (
@@ -11,7 +15,7 @@ const CardView = ({style, url, title, subtitle, explain}) => (
     <CardTitle title={title} subtitle={subtitle} />
     <CardText>{explain}</CardText>
     <CardActions>
-      <FlatButton label="Share" />
+      <RaisedButton style={styleButton} primary={true} label="Share" />
     </CardActions>
   </Card>
 );

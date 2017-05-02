@@ -51,9 +51,6 @@ class MainContent extends Component {
         }*/
         return (
             <div>
-                <p className="App-intro">
-                    Welcome to NASA Images!
-                </p>
                 {/*rows*/}
                 <CardView url={this.state.imgURL} style={cardStyle} title={this.state.title} subtitle={this.state.subtitle} explain={this.state.explanation} />
             </div>

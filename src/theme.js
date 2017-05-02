@@ -1,6 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
-  //blue900,
   cyan700,
   grey600,
   pinkA100, pinkA200, pinkA400,
@@ -14,7 +13,7 @@ export const mainTheme = getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   borderRadius: 2,
   palette: {
-    primary1Color: "#17283c",
+    primary1Color: "#01579b",
     primary2Color: cyan700,
     primary3Color: grey600,
     accent1Color: pinkA200,
@@ -22,8 +21,8 @@ export const mainTheme = getMuiTheme({
     accent3Color: pinkA100,
     textColor: fullWhite,
     secondaryTextColor: fade(fullWhite, 0.7),
-    alternateTextColor: '#f5f5f6',
-    canvasColor: '#37474f',
+    alternateTextColor: fullWhite,
+    canvasColor: '#303030',
     borderColor: fade(fullWhite, 0.3),
     disabledColor: fade(fullWhite, 0.3),
     pickerHeaderColor: fade(fullWhite, 0.12),
