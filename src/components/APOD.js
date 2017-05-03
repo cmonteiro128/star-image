@@ -7,7 +7,7 @@ let cardStyle = {
 }
 
 
-class MainContent extends Component {
+class APOD extends Component {
     
     constructor(props) {
         super(props);
@@ -24,12 +24,14 @@ class MainContent extends Component {
 
     componentDidMount() {
         this.getImageDay();
+        //this.getTodayApod();
     }
 
     getImageDay() {
         //Export your api key from a separate file
         fetch('https://api.nasa.gov/planetary/apod?api_key=' + key)
             .then((response) => {
+                console.log("Called API");
                 return response.json();
         }).then((imgData) => {
                 this.setState({
@@ -43,6 +45,12 @@ class MainContent extends Component {
         });
     }
 
+    getTodayApod() {
+        const moment = require('moment');
+        let imageLink = 'https://apod.nasa.gov/apod/ap' + moment().format('YYMMDD') + '.html';
+        console.log(imageLink);
+    }
+
     render() {          
         //const localImgUrl = this.imgurl; 
         /*var rows = [];
@@ -52,10 +60,17 @@ class MainContent extends Component {
         return (
             <div>
                 {/*rows*/}
-                <CardView url={this.state.imgURL} style={cardStyle} title={this.state.title} subtitle={this.state.subtitle} explain={this.state.explanation} />
+                <div className="row">
+                    <div className="col-lg-6">
+                        <CardView url={this.state.imgURL} style={cardStyle} title={this.state.title} subtitle={this.state.subtitle} explain={this.state.explanation} />
+                    </div>
+                    <div className="col-lg-6">
+                        <CardView url={this.state.imgURL} style={cardStyle} title={this.state.title} subtitle={this.state.subtitle} explain={this.state.explanation} />
+                    </div>
+                </div>                
             </div>
         );
     }
 }
 
-export default MainContent
+export default APOD

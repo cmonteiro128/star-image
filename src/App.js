@@ -4,10 +4,16 @@ import {mainTheme} from './theme.js';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import MainContent from './components/MainContent'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import APOD from './components/APOD'
+import Curiosity from './components/Curiosity'
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import './App.css';
+
+const NotFound = () => (
+  <h1>404.. This page is not found!</h1>)
+
 
 class App extends Component {
   constructor(props, context) {
@@ -78,7 +84,6 @@ class App extends Component {
     return styles;
   }
 
-
   render() {
     let {
       open, docked
@@ -100,34 +105,54 @@ class App extends Component {
     }
     
     return (
-      <MuiThemeProvider muiTheme={mainTheme}>
-        <div className="App">
-          <AppBar
-            title="NASA Images"
-            showMenuIconButton={showMenuIconButton}
-            zDepth={0}
-            onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
-            style={styles.appBar}
-          />
-          <Drawer 
-            open={open} 
-            docked={docked}
-            style={styles.navDrawer}
-            onRequestChange={this.handleChangeRequestNavDrawer}
-            >
-            <MenuItem>APOD</MenuItem>
-            <MenuItem>Curiosity</MenuItem>
-            <MenuItem>Opportunity</MenuItem>
-          </Drawer>
-          <div style={styles.root}>
-            <div style={styles.content}>
-              <MainContent  />
+      <Router>
+        <MuiThemeProvider muiTheme={mainTheme}>
+          <div className="App">
+            <AppBar
+              title="NASA Images"
+              showMenuIconButton={showMenuIconButton}
+              zDepth={0}
+              onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
+              style={styles.appBar}
+            />
+            <Drawer 
+              open={open} 
+              docked={docked}
+              style={styles.navDrawer}
+              onRequestChange={this.handleChangeRequestNavDrawer}
+              >
+              <MenuItem 
+                containerElement={<Link to="/apod" />}
+                >
+                APOD
+              </MenuItem>
+              <MenuItem 
+                containerElement={<Link to="/curiosity" />}
+                >
+                Curiosity
+              </MenuItem>
+              <MenuItem 
+                containerElement={<Link to="/opportunity" />}
+                >
+                Opportunity
+              </MenuItem>            
+            </Drawer>
+            <div style={styles.root}>
+              <div style={styles.content}>
+                <Switch>
+                    <Route exact path='/' component={APOD} />
+                    <Route path='/apod' component={APOD} />
+                    <Route path='/curiosity' component={Curiosity} />
+                    <Route component={NotFound} />
+                </Switch>
+              </div>
             </div>
           </div>
-        </div>
-      </MuiThemeProvider>
+        </MuiThemeProvider>
+      </Router>
     );
   }
 }
 
 export default withWidth()(App);
+
