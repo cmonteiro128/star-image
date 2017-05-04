@@ -54,7 +54,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "yarn run build && surge -p build -d star-image.surge.sh"
+    "deploy": "yarn run build && mv build/index.html build/200.html && surge -p build -d star-image.surge.sh"
   },
   "jest": {
     "collectCoverageFrom": [
