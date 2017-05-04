@@ -27,16 +27,17 @@ const styleImg = {
       position: 'relative',
       float: 'left',
       width: '100%',
-      minHeight: '400px',
-      minWidth: '664px',
+      minHeight: '200px',
+      minWidth: '332px',
       overflow: 'hidden',
-      height: '100% !important'
+      //height: '100% !important'
 };
 
 const CardView = ({style, url, title, subtitle, explain}) => (
   <GridTile
   title={title}
   actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+  style={style}
   >
     <img alt='' style={styleImg} src={url} />
   </GridTile>
