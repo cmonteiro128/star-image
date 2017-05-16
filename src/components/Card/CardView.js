@@ -18,7 +18,7 @@ const styleTile = {
       'paddingBottom': '60%'
 };
 
-const CardView = ({url, title, subtitle, explain}) => (
+const CardView = ({url, title, subtitle, explanation, media_type}) => (
 
     <GridTile
     title={title}
@@ -26,7 +26,13 @@ const CardView = ({url, title, subtitle, explain}) => (
     containerElement={'div'}
     style={styleTile}
     >
-      <img alt='' style={styleImg} src={url} />
+    {media_type == 'video' ? (
+      <iframe width="100%" height="100%" style={styleImg}
+      src={url}>
+      </iframe>
+    ) : (
+      <img alt='' style={styleImg} src={url} />   
+    )}
     </GridTile>
 );
 export default CardView;
