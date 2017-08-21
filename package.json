@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "create-react-app": "^1.3.3",
     "material-ui": "^0.17.4",
     "moment-mini": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-imageloader": "^2.1.0",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
@@ -15,11 +17,11 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.1"
+    "react-scripts": "^1.0.11"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && react-snapshot",
     "test": "react-scripts test --env=jsdom",
     "deploy": "yarn run build && mv build/index.html build/200.html && surge -p build -d star-image.surge.sh",
     "eject": "react-scripts eject"
