@@ -23,27 +23,37 @@ function preloader() {
   return <img src="/img/spinner.gif" alt=''/>;
 }
 
-const CardView = ({url, title, subtitle, explanation, media_type, modalTouch}) => (
-    <GridTile
-    title={title}
-    actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-    containerElement={'div'}
-    style={styleTile}
-    onTouchTap={modalTouch}
-    >
-    {media_type === 'video' ? (
-      <iframe title={title} width="100%" height="100%" style={styleImg} src={url} />
-    ) : (
-        <ImageLoader
-          src={url}
-          style={styleImg}
-          wrapper={React.DOM.div}
-          preloader={preloader}>
-          Image load failed!
-        </ImageLoader>
-    )}
-    </GridTile>
-);
+  
+const CardView = ({url, title, subtitle, explanation, media_type, modalTouch}) => {
+ 
+    const handleOpen = () => {
+      modalTouch(title);   
+    }
+    
+    return (
+      <GridTile
+      title={title}
+      actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+      containerElement={'div'}
+      style={styleTile}
+      onTouchTap={handleOpen}
+      >
+      {media_type === 'video' ? (
+        <iframe title={title} width="100%" height="100%" style={styleImg} src={url} />
+      ) : (
+          <ImageLoader
+            src={url}
+            style={styleImg}
+            wrapper={React.DOM.div}
+            preloader={preloader}>
+            Image load failed!
+          </ImageLoader>
+      )}
+      </GridTile>
+    );
+}
+
+
 
 /*    <img alt='' style={styleImg} src={url} />   */
 CardView.propTypes = {

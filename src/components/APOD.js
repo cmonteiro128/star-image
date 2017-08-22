@@ -14,8 +14,8 @@ const divStyle = {
 };
 
 class APOD extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       totalLoaded: 0,
       open: false,
@@ -23,6 +23,7 @@ class APOD extends Component {
     };
     // This binding is necessary to make `this` work in the callback
     this.addAPODS = this.addAPODS.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
 
   handleOpen = modalTitle => {
@@ -124,7 +125,7 @@ class APOD extends Component {
             >
               <div className="box">
                 <CardView
-                  modalTouch={() => this.handleOpen(object.title)}
+                  modalTouch={this.handleOpen}
                   url={object.imgURL}
                   title={object.title}
                   subtitle={object.subtitle}
