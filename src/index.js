@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-snapshot';
+import ReactDOM from 'react-dom'
 import App from './App';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import registerServiceWorker from './registerServiceWorker';
@@ -7,7 +7,7 @@ import './index.css';
 
 injectTapEventPlugin();
 
-render(
+ReactDOM.render(
   <App />,
   document.getElementById('root')
 );

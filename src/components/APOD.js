@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import CardView from './Card/CardView';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import ModalView from './Modal/ModalView'
+import React, { Component } from "react";
+import CardView from "./Card/CardView";
+import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
+import ModalView from "./Modal/ModalView";
 //import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 //import { connect } from 'react-redux';
-import moment from 'moment-mini';
-import './APODStyle.css';
-import key from '../apikey.js';
+import moment from "moment-mini";
+import "./APODStyle.css";
+import key from "../apikey.js";
 
 const divStyle = {
-  padding: '8px'
+  padding: "8px"
 };
 
 class APOD extends Component {
@@ -30,7 +30,7 @@ class APOD extends Component {
       open: true,
       title: modalTitle
     });
-    console.log('Title is ' + modalTitle);
+    console.log("Title is " + modalTitle);
   };
 
   handleClose = () => {
@@ -44,26 +44,26 @@ class APOD extends Component {
   getImageDay(date) {
     //Export your api key from a separate file
     fetch(
-      'https://api.nasa.gov/planetary/apod?api_key=' + key + '&date=' + date
+      "https://api.nasa.gov/planetary/apod?api_key=" + key + "&date=" + date
     )
       .then(response => {
-        console.log('Called API');
+        console.log("Called API");
         return response.json();
       })
       .then(imgData => {
         let currentList = this.state.listOfImages;
         currentList.push({
-          imgURL: imgData['url'],
-          title: imgData['title'],
-          explanation: imgData['explanation'],
-          subtitle: imgData['copyright'],
-          media_type: imgData['media_type'],
-          date: imgData['date']
+          imgURL: imgData["url"],
+          title: imgData["title"],
+          explanation: imgData["explanation"],
+          subtitle: imgData["copyright"],
+          media_type: imgData["media_type"],
+          date: imgData["date"]
         });
         currentList.sort(function(a, b) {
           return moment(b.date) - moment(a.date);
         });
-        console.log('sorted');
+        console.log("sorted");
         this.setState({ listOfImages: currentList });
       })
       .catch(function(err) {
@@ -72,21 +72,21 @@ class APOD extends Component {
   }
 
   getAPODS() {
-    let currentDay = moment().format('YYYY-MM-DD');
+    let currentDay = moment().format("YYYY-MM-DD");
     for (let i = 1; i <= 12; i++) {
       this.getImageDay(currentDay);
-      currentDay = moment(currentDay).add(-1, 'days').format('YYYY-MM-DD');
+      currentDay = moment(currentDay).add(-1, "days").format("YYYY-MM-DD");
     }
     this.setState({ totalLoaded: this.state.totalLoaded + 12 });
   }
 
   addAPODS() {
     let currentDay = moment()
-      .add(-this.state.totalLoaded, 'days')
-      .format('YYYY-MM-DD');
+      .add(-this.state.totalLoaded, "days")
+      .format("YYYY-MM-DD");
     for (let i = 1; i <= 3; i++) {
       this.getImageDay(currentDay);
-      currentDay = moment(currentDay).add(-1, 'days').format('YYYY-MM-DD');
+      currentDay = moment(currentDay).add(-1, "days").format("YYYY-MM-DD");
     }
     this.setState({ totalLoaded: this.state.totalLoaded + 3 });
   }
@@ -124,7 +124,7 @@ class APOD extends Component {
             >
               <div className="box">
                 <CardView
-                  modalTouch={() => this.handleOpen.bind('test')}
+                  modalTouch={() => this.handleOpen(object.title)}
                   url={object.imgURL}
                   title={object.title}
                   subtitle={object.subtitle}
@@ -144,6 +144,7 @@ class APOD extends Component {
           title={this.state.title}
           actions={actions}
           modal={true}
+          handleClose={this.handleClose}
           open={this.state.open}
         />
       </div>

@@ -1,49 +1,37 @@
-import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import React from "react";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
-export default class ModalView extends React.Component {
-  state = {
-    open: false,
-  };
+const ModalView = (props) => {
+  const actions = [
+    <FlatButton
+      label="Cancel"
+      primary={true}
+      onTouchTap={props.handleClose}
+    />,
+    <FlatButton
+      label="Submit"
+      primary={true}
+      disabled={true}
+      onTouchTap={props.handleClose}
+    />
+  ];
 
-  handleOpen = () => {
-    this.setState({open: true});
-  };
+  return (
+    <div>
+      <Dialog
+        title={props.title}
+        actions={actions}
+        modal={true}
+        open={props.open}
+      >
+        Only actions can close this dialog.
+      </Dialog>
+    </div>
+  );
+};
 
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
-  render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        disabled={true}
-        onTouchTap={this.handleClose}
-      />,
-    ];
-
-    return (
-      <div>
-        <Dialog
-          title="Dialog With Actions"
-          actions={actions}
-          modal={true}
-          open={this.state.open}
-        >
-          Only actions can close this dialog.
-        </Dialog>
-      </div>
-    );
-  }
-}
+export default ModalView;
