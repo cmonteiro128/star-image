@@ -1,11 +1,6 @@
-import { combineReducers } from "redux";
-import moment from "moment-mini";
-import {
-  GET_APOD,
-  RECIEVE_APOD,
-  CLOSE_MODAL,
-  SET_ACTIVE_MODAL
-} from "../actions/apod";
+import { combineReducers } from 'redux';
+import moment from 'moment-mini';
+import { GET_APOD, RECIEVE_APOD, CLOSE_MODAL, SET_ACTIVE_MODAL } from '../actions/apod';
 
 function totalLoaded(state = 0, action) {
   switch (action.type) {
@@ -16,16 +11,11 @@ function totalLoaded(state = 0, action) {
   }
 }
 
-function list(
-  state = [],
-  action
-) {
+function list(state = [], action) {
+  const currentList = [...state, action.json];
   switch (action.type) {
     case RECIEVE_APOD:
-      const currentList = [...state, action.json];
-      currentList.sort(function(a, b) {
-        return moment(b.date) - moment(a.date);
-      });      
+      currentList.sort((a, b) => moment(b.date) - moment(a.date));
       return currentList;
     default:
       return state;
@@ -55,7 +45,7 @@ const APOD = combineReducers({
   totalLoaded,
   list,
   showModal,
-  activeAPOD
+  activeAPOD,
 });
 
 export default APOD;

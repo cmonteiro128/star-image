@@ -1,23 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Curiosity extends Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    componentDidMount() {
-    }
+  componentDidMount() {}
 
-    render() {          
-        return (
-            <div>
-                <p>Hey!</p>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <p>Hey!</p>
+      </div>
+    );
+  }
 }
 
-export default Curiosity
+export default Curiosity;

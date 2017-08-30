@@ -1,8 +1,7 @@
-//import {totalLoaded, list} from "./apod.js";
-import APOD from "./apod.js";
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
+import APOD from './apod';
 
 const rootReducer = combineReducers({
-  APOD
+  APOD,
 });
 export default rootReducer;

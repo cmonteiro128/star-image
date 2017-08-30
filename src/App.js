@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {mainTheme} from './theme.js';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import APOD from './components/APOD'
-import Curiosity from './components/Curiosity'
-import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
+import mainTheme from './theme';
+import APOD from './components/APOD';
+import Curiosity from './components/Curiosity';
 import './App.css';
 
-const NotFound = () => (
-  <h1>404.. This page is not found!</h1>)
-
+const NotFound = () => <h1>404.. This page is not found!</h1>;
 
 class App extends Component {
   constructor(props, context) {
@@ -25,52 +23,22 @@ class App extends Component {
     this.state = { open: false, docked: false };
   }
 
-  handleTouchTapLeftIconButton = () => {
-    this.setState({
-      open: !this.state.open,
-    });
-  };
-
-  handleChangeRequestNavDrawer = (open) => {
-    this.setState({
-      open: open,
-    });
-  };
-
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
-  }
-
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
-  }
-
-  handleChangeMuiTheme = (muiTheme) => {
-    this.setState({
-      muiTheme: muiTheme,
-    });
-  };
-
   getStyles() {
     const styles = {
       main: {
-        'backgroundColor': "#e1e2e1",
+        backgroundColor: '#e1e2e1',
       },
       appBar: {
         position: 'fixed',
         // Needed to overlap the examples
-        //zIndex: this.state.muiTheme.zIndex.appBar + 1,
+        // zIndex: this.state.muiTheme.zIndex.appBar + 1,
         top: 0,
       },
       content: {
         margin: spacing.desktopGutter,
       },
       root: {
-        paddingTop: spacing.desktopKeylineIncrement,        
+        paddingTop: spacing.desktopKeylineIncrement,
       },
       contentWhenMedium: {
         margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
@@ -84,10 +52,32 @@ class App extends Component {
     return styles;
   }
 
+  handleChangeRequestNavDrawer(open) {
+    this.setState({
+      open,
+    });
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleTouchTap() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleChangeMuiTheme(muiTheme) {
+    this.setState({
+      muiTheme,
+    });
+  }
+
   render() {
-    let {
-      open, docked
-    } = this.state;
+    let { open, docked } = this.state;
 
     const styles = this.getStyles();
 
@@ -99,11 +89,11 @@ class App extends Component {
       showMenuIconButton = false;
 
       styles.navDrawer = {
-        //zIndex: styles.appBar.zIndex - 1,
+        // zIndex: styles.appBar.zIndex - 1,
       };
       styles.root.paddingLeft = 256;
     }
-    
+
     return (
       <Router>
         <MuiThemeProvider muiTheme={mainTheme}>
@@ -115,35 +105,23 @@ class App extends Component {
               onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
               style={styles.appBar}
             />
-            <Drawer 
-              open={open} 
+            <Drawer
+              open={open}
               docked={docked}
               style={styles.navDrawer}
               onRequestChange={this.handleChangeRequestNavDrawer}
-              >
-              <MenuItem 
-                containerElement={<Link to="/apod" />}
-                >
-                APOD
-              </MenuItem>
-              <MenuItem 
-                containerElement={<Link to="/curiosity" />}
-                >
-                Curiosity
-              </MenuItem>
-              <MenuItem 
-                containerElement={<Link to="/opportunity" />}
-                >
-                Opportunity
-              </MenuItem>            
+            >
+              <MenuItem containerElement={<Link to="/apod" />}>APOD</MenuItem>
+              <MenuItem containerElement={<Link to="/curiosity" />}>Curiosity</MenuItem>
+              <MenuItem containerElement={<Link to="/opportunity" />}>Opportunity</MenuItem>
             </Drawer>
             <div style={styles.root}>
               <div style={styles.content}>
                 <Switch>
-                    <Route exact path='/' component={APOD} />
-                    <Route path='/apod' component={APOD} />
-                    <Route path='/curiosity' component={Curiosity} />
-                    <Route component={NotFound} />
+                  <Route exact path="/" component={APOD} />
+                  <Route path="/apod" component={APOD} />
+                  <Route path="/curiosity" component={Curiosity} />
+                  <Route component={NotFound} />
                 </Switch>
               </div>
             </div>
@@ -155,4 +133,3 @@ class App extends Component {
 }
 
 export default withWidth()(App);
-
