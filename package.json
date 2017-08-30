@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && react-snapshot",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "deploy": "yarn run build && mv build/index.html build/200.html && surge -p build -d star-image.surge.sh",
     "eject": "react-scripts eject",

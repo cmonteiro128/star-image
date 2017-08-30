@@ -3,6 +3,8 @@ import moment from "moment-mini";
 import {
   GET_APOD,
   RECIEVE_APOD,
+  CLOSE_MODAL,
+  SET_ACTIVE_MODAL
 } from "../actions/apod";
 
 function totalLoaded(state = 0, action) {
@@ -30,9 +32,30 @@ function list(
   }
 }
 
+function showModal(state = false, action) {
+  switch (action.type) {
+    case SET_ACTIVE_MODAL:
+      return true;
+    case CLOSE_MODAL:
+      return false;
+    default:
+      return state;
+  }
+}
+
+function activeAPOD(state = {}, action) {
+  switch (action.type) {
+    case SET_ACTIVE_MODAL:
+      return action.json;
+    default:
+      return state;
+  }
+}
 const APOD = combineReducers({
   totalLoaded,
-  list
+  list,
+  showModal,
+  activeAPOD
 });
 
 export default APOD;

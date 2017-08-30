@@ -5,30 +5,47 @@ import FlatButton from "material-ui/FlatButton";
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
-const ModalView = (props) => {
+const ModalView = props => {
   const actions = [
-    <FlatButton
-      label="Cancel"
-      primary={true}
-      onTouchTap={props.handleClose}
-    />,
+    <FlatButton label="Cancel" primary={true} onTouchTap={props.closeModal} />,
     <FlatButton
       label="Submit"
       primary={true}
       disabled={true}
-      onTouchTap={props.handleClose}
+      onTouchTap={props.closeModal}
     />
   ];
-
   return (
     <div>
       <Dialog
-        title={props.title}
+        title={props.apodInfo.title}
         actions={actions}
-        modal={true}
         open={props.open}
+        onRequestClose={props.closeModal}
+        style={{ textAlign: "center" }}
       >
-        Only actions can close this dialog.
+        {props.apodInfo.media_type === "video"
+          ? <iframe
+              title={props.apodInfo.title}
+              width="100%"
+              height="100%"
+              src={props.apodInfo.url}
+            />
+          : <img
+              alt=""
+              style={{ maxWidth: "80%", height: "auto" }}
+              src={props.apodInfo.url}
+            />}{" "}
+        <p
+          style={{
+            // eslint-disable-next-line
+            fontSize: "30px",
+            // eslint-disable-next-line
+            fontSize: "1.1vw"
+          }}
+        >
+          {props.apodInfo.explanation}
+        </p>
       </Dialog>
     </div>
   );

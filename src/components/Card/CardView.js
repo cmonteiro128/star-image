@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import ImageLoader from 'react-imageloader';
 
 const styleImg = {
   position: 'absolute',
@@ -19,15 +18,10 @@ const styleTile = {
       'paddingBottom': '60%'
 };
 
-function preloader() {
-  return <img src="/img/spinner.gif" alt=''/>;
-}
-
-  
-const CardView = ({url, title, subtitle, explanation, media_type, modalTouch}) => {
+const CardView = ({url, title, subtitle, explanation, media_type, modalTouch, activeAPOD}) => {
  
     const handleOpen = () => {
-      modalTouch(title);   
+      modalTouch(activeAPOD);   
     }
     
     return (
@@ -41,19 +35,12 @@ const CardView = ({url, title, subtitle, explanation, media_type, modalTouch}) =
       {media_type === 'video' ? (
         <iframe title={title} width="100%" height="100%" style={styleImg} src={url} />
       ) : (
-          <ImageLoader
-            src={url}
-            style={styleImg}
-            wrapper={React.DOM.div}
-            preloader={preloader}>
-            Image load failed!
-          </ImageLoader>
+        <img alt='' style={styleImg} src={url} />   
+        
       )}
       </GridTile>
     );
 }
-
-
 
 /*    <img alt='' style={styleImg} src={url} />   */
 CardView.propTypes = {

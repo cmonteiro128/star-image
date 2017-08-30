@@ -1,40 +1,25 @@
 import React, { Component } from "react";
 import CardView from "./Card/CardView";
 import RaisedButton from "material-ui/RaisedButton";
-import FlatButton from "material-ui/FlatButton";
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 //import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import ModalView from "./Modal/ModalView";
 import "./APODStyle.css";
-import {loadInitialAPOD, loadMoreAPODs} from '../actions/apod';
+import {
+  loadInitialAPOD,
+  loadMoreAPODs,
+  setActiveModal,
+  closeModal
+} from "../actions/apod";
 
 class APOD extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      open: false
-    };
-    // This binding is necessary to make `this` work in the callback
-    this.handleOpen = this.handleOpen.bind(this);
-  }
-
-  handleOpen = modalTitle => {
-    this.setState({
-      open: true,
-      title: modalTitle
-    });
-    console.log("Title is " + modalTitle);
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
   componentWillMount() {
-    this.props.loadInitialAPOD();
+    const { loadInitialAPOD } = this.props;
+    loadInitialAPOD();
   }
 
   /*
@@ -46,31 +31,24 @@ class APOD extends Component {
 
 */
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        disabled={true}
-        onTouchTap={this.handleClose}
-      />
-    ];
+    //Dispatchers
+    const { setActiveModal, closeModal, loadMoreAPODs } = this.props;
+    //State
+    const { listOfImages, showModal, activeAPOD } = this.props;
+
     return (
       <div>
         <div className="row mainParent">
-          {this.props.listOfImages.map(object =>
+          {listOfImages.map(object =>
             <div
               key={object.date}
-              style={{'padding': '8px'}}
+              style={{ padding: "8px" }}
               className="col-lg-4 col-md-6 col-sm-6 col-xs-12"
             >
               <div className="box">
                 <CardView
-                  modalTouch={this.handleOpen}
+                  modalTouch={setActiveModal}
+                  activeAPOD={object}
                   url={object.url}
                   title={object.title}
                   subtitle={object.copyright}
@@ -81,17 +59,12 @@ class APOD extends Component {
             </div>
           )}
         </div>
-        <RaisedButton
-          label="Load More"
-          onTouchTap={this.props.addAPODS}
-          primary={true}
-        />
+        <RaisedButton label="Load More" onTouchTap={loadMoreAPODs} primary={true} />
         <ModalView
-          title={this.state.title}
-          actions={actions}
+          apodInfo={activeAPOD}
           modal={true}
-          handleClose={this.handleClose}
-          open={this.state.open}
+          open={showModal}
+          closeModal={closeModal}
         />
       </div>
     );
@@ -100,15 +73,14 @@ class APOD extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    listOfImages : state.APOD.list
-  }
+    listOfImages: state.APOD.list,
+    showModal: state.APOD.showModal,
+    activeAPOD: state.APOD.activeAPOD
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    loadInitialAPOD: bindActionCreators(loadInitialAPOD, dispatch),
-    addAPODS: bindActionCreators(loadMoreAPODs, dispatch)
-  }
+  return bindActionCreators({ loadInitialAPOD, loadMoreAPODs, setActiveModal, closeModal}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(APOD);
