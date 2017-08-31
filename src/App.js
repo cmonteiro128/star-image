@@ -52,7 +52,7 @@ class App extends Component {
     return styles;
   }
 
-  handleChangeRequestNavDrawer(open) {
+  handleChangeRequestNavDrawer = (open) => {
     this.setState({
       open,
     });
@@ -69,6 +69,12 @@ class App extends Component {
       open: true,
     });
   }
+
+  handleTouchTapLeftIconButton = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  };
 
   handleChangeMuiTheme(muiTheme) {
     this.setState({
@@ -88,9 +94,6 @@ class App extends Component {
       docked = true;
       showMenuIconButton = false;
 
-      styles.navDrawer = {
-        // zIndex: styles.appBar.zIndex - 1,
-      };
       styles.root.paddingLeft = 256;
     }
 
@@ -101,7 +104,7 @@ class App extends Component {
             <AppBar
               title="NASA Images"
               showMenuIconButton={showMenuIconButton}
-              zDepth={0}
+              zDepth={2}
               onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
               style={styles.appBar}
             />
