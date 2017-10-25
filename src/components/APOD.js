@@ -8,12 +8,18 @@ import CardView from './Card/CardView';
 
 import ModalView from './Modal/ModalView';
 import './APODStyle.css';
-import { loadInitialAPOD, loadMoreAPODs, setActiveModal, closeModal } from '../actions/apod';
+import {
+  loadInitialAPOD,
+  loadMoreAPODs,
+  setActiveModal,
+  closeModal,
+} from '../actions/apod';
 
 class APOD extends Component {
   componentWillMount() {
-    const { loadInitialAPOD } = this.props;
-    loadInitialAPOD();
+    const { loadInitialAPOD, listOfImages } = this.props;
+    // console.log(listOfImages.length);
+    if (listOfImages.length === 0) loadInitialAPOD();
   }
 
   /*
@@ -54,7 +60,12 @@ class APOD extends Component {
           ))}
         </div>
         <RaisedButton label="Load More" onTouchTap={loadMoreAPODs} primary />
-        <ModalView apodInfo={activeAPOD} modal open={showModal} closeModal={closeModal} />
+        <ModalView
+          apodInfo={activeAPOD}
+          modal
+          open={showModal}
+          closeModal={closeModal}
+        />
       </div>
     );
   }
