@@ -26,16 +26,7 @@ const ModalView = (props) => {
         ) : (
           <img alt="" style={{ maxWidth: '80%', height: 'auto' }} src={props.apodInfo.url} />
         )}{' '}
-        <p
-          style={{
-            // eslint-disable-next-line
-            fontSize: '30px',
-            // eslint-disable-next-line
-            fontSize: '1.1vw',
-          }}
-        >
-          {props.apodInfo.explanation}
-        </p>
+        <p>{props.apodInfo.explanation}</p>
       </Dialog>
     </div>
   );
