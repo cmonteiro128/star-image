@@ -3,17 +3,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CardView from './Card/CardView';
+import InfiniteScroll from 'react-infinite-scroller';
 
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import ModalView from './Modal/ModalView';
 import './APODStyle.css';
-import {
-  loadInitialAPOD,
-  loadMoreAPODs,
-  setActiveModal,
-  closeModal,
-} from '../actions/apod';
+import { loadInitialAPOD, loadMoreAPODs, setActiveModal, closeModal } from '../actions/apod';
 
 class APOD extends Component {
   componentWillMount() {
@@ -37,7 +33,12 @@ class APOD extends Component {
     const { listOfImages, showModal, activeAPOD } = this.props;
 
     return (
-      <div>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMoreAPODs}
+        hasMore={true || false}
+        loader={<div className="loader">Loading ...</div>}
+      >
         <div className="row mainParent">
           {listOfImages.map(object => (
             <div
@@ -60,13 +61,8 @@ class APOD extends Component {
           ))}
         </div>
         <RaisedButton label="Load More" onTouchTap={loadMoreAPODs} primary />
-        <ModalView
-          apodInfo={activeAPOD}
-          modal
-          open={showModal}
-          closeModal={closeModal}
-        />
-      </div>
+        <ModalView apodInfo={activeAPOD} modal open={showModal} closeModal={closeModal} />
+      </InfiniteScroll>
     );
   }
 }
